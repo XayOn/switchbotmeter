@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "aioswitchbotmeter"
+version = "0.1.0"
+description = "AsyncIO-compatible SwitchBot Meter library"
+authors = ["David Francos <opensource@davidfrancos.net>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+bluepy = "^1.3.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
