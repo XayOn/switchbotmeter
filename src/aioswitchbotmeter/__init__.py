@@ -27,7 +27,7 @@ class DevScanner(DefaultDelegate):
         scanner = Scanner().withDelegate(self)
         while True:
             devs = (Device(d) for d in scanner.scan(self.wait_time))
-            result = {a.mac: a.data for a in devs if a}
+            result = {a.mac: a.data for a in devs if a.mac}
             self.loop.call_soon_threadsafe(self.queue.put_nowait, result)
 
 
