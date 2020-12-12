@@ -2,7 +2,7 @@
 
 **Python Swithbot Meter API**
 
-Comprehensible `SwitchBot Meter <https://www.switch-bot.com/products/switchbot-meter) API>`_.
+Comprehensible `SwitchBot Meter <https://www.switch-bot.com/products/switchbot-meter>`_ API.
 Read your SwitchBot Meter status in real time via BLE. 
 
 |pypi| |downloads| |python_versions| |pypi_versions| |coverage| |actions|
