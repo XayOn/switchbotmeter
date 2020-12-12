@@ -1,0 +1,17 @@
+[[package]]
+name = "bluepy"
+version = "1.3.0"
+description = "Python module for interfacing with BLE devices through Bluez"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "061ac44d0eaeb05dbbb4ec6ab5cff090cb00517bed6111038713cb5eced9d204"
+
+[metadata.files]
+bluepy = [
+    {file = "bluepy-1.3.0.tar.gz", hash = "sha256:2a71edafe103565fb990256ff3624c1653036a837dfc90e1e32b839f83971cec"},
+]

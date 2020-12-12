@@ -1,8 +1,9 @@
 [tool.poetry]
-name = "aioswitchbotmeter"
-version = "0.1.1"
+name = "switchbotmeter"
+version = "1.0.0"
 description = "AsyncIO-compatible SwitchBot Meter library"
 authors = ["David Francos <opensource@davidfrancos.net>"]
+readme = "Readme.rst"
 
 [tool.poetry.dependencies]
 python = "^3.8"
