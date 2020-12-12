@@ -7,8 +7,8 @@ SERVICE_UUID = 'cba20d00-224d-11e6-9fb8-0002a5d5c51b'
 
 class DevScanner(DefaultDelegate):
     """Device Scanner.
-        
-    Iterate trough this device 
+
+    Iterate trough this device
 
     Arguments:
 
@@ -28,7 +28,7 @@ class DevScanner(DefaultDelegate):
     def __next__(self):
         """Each time we call next() over a `DevScanner` object, it will return
            an iterator with the whole currently-available list of devices.
-        """ 
+        """
         res = self.scanner.scan(self.wait_time)
         return filter(None, (Device(d) for d in res))
 
@@ -38,7 +38,7 @@ class Device:
 
     Given a bluepy device object, it gets the scan data and looks for switchbot
     meter information. If found, parses it and populates itself.
-    
+
     A device will test falsy if it's not a switchbot meter device, wich is used
     with a filter(None, devices) to filter out non-switchbot devices from scan
     data.
@@ -49,7 +49,7 @@ class Device:
         - mac: Device mac
         - model: Device model
         - mode: Device mode
-        - date: Date of the current scan 
+        - date: Date of the current scan
         - temp: Temperature as reported by the meter
         - humidity: Humidity, percentage.
         - data: Complete dict with all the data minus the mac.
