@@ -20,7 +20,11 @@ Read your SwitchBot Meter status in real time via BLE.
 Installation
 ------------
 
-This library is available on `Pypi <https://pypi.org/project/switchbotmeter/>`_, you can install it directly with pip::
+This library is available on `Pypi
+<https://pypi.org/project/switchbotmeter/>`_, you can install it directly with
+pip
+
+.. code:: bash
 
         pip install switchbotmeter
 
