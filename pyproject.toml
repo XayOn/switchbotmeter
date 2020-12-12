@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "switchbotmeter"
-version = "1.0.0"
+version = "1.0.1"
 description = "SwitchBot Meter library"
 license = "GPL3+"
 authors = ["David Francos <opensource@davidfrancos.net>"]
