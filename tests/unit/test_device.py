@@ -1,5 +1,3 @@
-import pytest
-
 DEVS_MAC = {
     'Local name': 'WoHand',
     'Complete 128b Services': 'WoMeter',
@@ -52,8 +50,7 @@ def test_device_data_repr():
 
     # Test __bool__
     device = Device(FakeDeviceMac())
-    assert str(Device(
-        FakeDeviceMac())) == '<T temp: 19.7 humidity: 69> (11:22:33:44:55:66)'
+    assert str(device) == '<T temp: 19.7 humidity: 69> (11:22:33:44:55:66)'
 
 
 def test_device_data_data():
