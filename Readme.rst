@@ -5,10 +5,9 @@
 Comprehensible `SwitchBot Meter <https://www.switch-bot.com/products/switchbot-meter) API>`_.
 Read your SwitchBot Meter status in real time via BLE. 
 
-|pypi| |release| |downloads| |python_versions| |pypi_versions| |coverage| |actions|
+|pypi| |downloads| |python_versions| |pypi_versions| |coverage| |actions|
 
 .. |pypi| image:: https://img.shields.io/pypi/l/switchbotmeter
-.. |release| image:: https://img.shields.io/librariesio/release/pypi/switchbotmeter
 .. |downloads| image:: https://img.shields.io/pypi/dm/switchbotmeter
 .. |python_versions| image:: https://img.shields.io/pypi/pyversions/switchbotmeter
 .. |pypi_versions| image:: https://img.shields.io/pypi/v/switchbotmeter
