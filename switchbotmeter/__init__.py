@@ -79,8 +79,9 @@ class Device:
     def __repr__(self):
         """Represent data model, temp, humidity and mac."""
         if self.data:
-            return (f'<{self.data["model"]} temp: {self.data["temp"]} '
-                    f'humidity: {self.data["humidity"]}> ({self.mac})')
+            return (f'<{self.data["model"]} ({self.data["mode"]}) '
+                    f'temp: {self.data["temp"]:.2f} '
+                    f'humidity: {self.data["humidity"]}%> ({self.mac})')
         return 'Unknown device'
 
     def set_mac(self, value):
@@ -90,24 +91,12 @@ class Device:
 
     def set_service_data(self, value):
         """Extract service data"""
-        model = binascii.a2b_hex(value[4:6])
-        mode = binascii.a2b_hex(value[6:8])
-
-        if len(value) != 16:
+        if len(value) != 16: 
             return
-
-        temp_fra = int(value[11:12].encode('utf-8'), 16) / 10.0
-        temp_int = int(value[12:14].encode('utf-8'), 16)
-
-        if temp_int < 128:
-            temp_int *= -1
-            temp_fra *= -1
-        else:
-            temp_int -= 128
-
-        humidity = int(value[14:16].encode('utf-8'), 16) % 128
-        self.data = dict(model=model.decode(),
-                         mode=binascii.hexlify(mode).decode(),
+        hexv = binascii.unhexlify(value)
+        self.data = dict(model=hexv[2:3].decode(),
+                         mode=hexv[3:4].hex(),
                          date=datetime.datetime.now(),
-                         temp=temp_int + temp_fra,
-                         humidity=humidity)
+                         temp=int(hexv[6:7].hex(), 16) - 128 + (hexv[5] / 10),
+                         humidity=hexv[7])
+        print(self.data)
