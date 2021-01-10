@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "switchbotmeter"
-version = "1.0.1"
+version = "1.0.2"
 description = "SwitchBot Meter library"
 license = "GPL3+"
 authors = ["David Francos <opensource@davidfrancos.net>"]
@@ -10,6 +10,7 @@ readme = "Readme.rst"
 python = "^3.8"
 bluepy = "^1.3.0"
 pylint = "^2.6.0"
+baseconvert = "^1.0.0-alpha.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
