@@ -49,7 +49,8 @@ def test_device_data_repr():
 
     # Test __bool__
     device = Device(FakeDeviceMac())
-    assert str(device) == '<T (10) temp: 19.70 humidity: 69%> (11:22:33:44:55:66)'
+    assert str(
+        device) == '<T (10) temp: 19.70 humidity: 69%> (11:22:33:44:55:66)'
 
 
 def test_device_data_data():
