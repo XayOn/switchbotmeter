@@ -91,7 +91,7 @@ class Device:
 
     def set_service_data(self, value):
         """Extract service data"""
-        if len(value) != 16: 
+        if len(value) != 16:
             return
         hexv = binascii.unhexlify(value)
         self.data = dict(model=hexv[2:3].decode(),
