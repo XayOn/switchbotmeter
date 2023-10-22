@@ -14,12 +14,14 @@ class DevScanner(DefaultDelegate):
 
         device: HCI device to scan on
         wait: On each scan, how much time to wait for devices
+        macs: Optional list of MAC addresses
         *args, **kwargs: DefaultDelegate arguments
     """
-    def __init__(self, device='hci0', wait=5, *args, **kwargs):
+    def __init__(self, device='hci0', wait=5, macs=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.wait_time = int(wait)
         self.scanner = Scanner().withDelegate(self)
+        self.macs = macs
 
     def __iter__(self):
         """Use as iterator."""
@@ -30,7 +32,7 @@ class DevScanner(DefaultDelegate):
            an iterator with the whole currently-available list of devices.
         """
         res = self.scanner.scan(self.wait_time)
-        return filter(None, (Device(d) for d in res))
+        return filter(None, (Device(d, self.macs) for d in res))
 
 
 class Device:
@@ -54,7 +56,7 @@ class Device:
         - humidity: Humidity, percentage.
         - data: Complete dict with all the data minus the mac.
     """
-    def __init__(self, device):
+    def __init__(self, device, mac_filter):
         self.device = device
         self.mac = None
         self.data = {}
@@ -66,6 +68,8 @@ class Device:
         for (_, key, value) in self.device.getScanData():
             # Load data
             actions.get(key, lambda x: {})(value)
+        if mac_filter:
+            self.mac = self.device.addr if self.device.addr in mac_filter else None
 
     def __getattr__(self, attr):
         """Enable direct access to data attributes"""

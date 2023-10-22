@@ -56,3 +56,10 @@ this readme :
     ...
     <T temp: 20.4 humidity: 71> (c6:97:89:d6:c8:09)
     c6:97:89:d6:c8:09 -> 20.4
+
+If your device is shown but not returned by DevScanner, it wasn't identified as
+a SwitchBot meter. In this case, pass the MAC address to DevScanner, e.g.:
+
+.. code:: python
+
+    DevScanner(macs=['c6:97:89:d6:c8:09'])
