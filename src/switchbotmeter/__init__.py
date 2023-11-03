@@ -81,17 +81,19 @@ class Device:
     Arguments:
     ---------
         device: Device
-        mac_filter: Allow only macs specified here
+        force_devices: Force this devices to be selected regardless of their
+                       identification (list of MAC addresses)
     """
 
     def __init__(
         self: "Device",
         device: ScanEntry,
-        mac_filter: list | None = None,
+        forced_devices: list[str] | None = None,
     ) -> None:
         """Set up device."""
         self.device = device
-        self.mac = None
+        self.forced_devices = forced_devices or []
+        self._mac = ""
         self.data = {}
 
         actions = {
@@ -103,10 +105,16 @@ class Device:
         for _, key, value in self.device.getScanData():
             actions.get(key, lambda _: {})(value)  # Load data
 
-        if mac_filter:
-            self.mac = (
-                self.device.addr if self.device.addr in mac_filter else None
-            )
+    @property
+    def mac(self: "Device") -> str:
+        """
+        Return current device mac.
+
+        Can have been set via metadata action or forced.
+        """
+        if self.device.addr in self.forced_devices:
+            return self.device.addr
+        return self._mac
 
     def __getattr__(self: "Device", attr: str) -> str | None:
         """Enable direct access to data attributes."""
@@ -131,7 +139,7 @@ class Device:
     def set_mac(self: "Device", value: str) -> None:
         """Set device mac."""
         if value in ("WoHand", "WoMeter", SERVICE_UUID):
-            self.mac = self.device.addr
+            self._mac = self.device.addr
 
     def set_service_data(self: Device, value: bytes) -> None:
         """Extract service data."""
