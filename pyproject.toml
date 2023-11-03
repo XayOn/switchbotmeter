@@ -1,23 +1,113 @@
-[tool.poetry]
-name = "switchbotmeter"
-version = "1.0.2"
-description = "SwitchBot Meter library"
-license = "GPL3+"
-authors = ["David Francos <opensource@davidfrancos.net>"]
-readme = "Readme.rst"
-
-[tool.poetry.dependencies]
-python = "^3.8"
-bluepy = "^1.3.0"
-pylint = "^2.6.0"
-baseconvert = "^1.0.0-alpha.4"
-
-[tool.poetry.dev-dependencies]
-pytest = "^6.1.2"
-pytest-cov = "^2.10.1"
-pytest-flake8 = "^1.0.6"
-
-
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "switchbotmeter"
+dynamic = ["version"]
+description = ''
+readme = "Readme.rst"
+requires-python = ">=3.7"
+license = "GPL-3.0"
+keywords = []
+authors = [
+  { name = "David Francos", email = "me@davidfrancos.net" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = ["bluepy~=1.3.0"]
+
+[project.urls]
+Documentation = "https://github.com/unknown/switchbotmeter#readme"
+Issues = "https://github.com/unknown/switchbotmeter/issues"
+Source = "https://github.com/unknown/switchbotmeter"
+
+[tool.hatch.version]
+path = "src/switchbotmeter/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "coverage[toml]>=6.5",
+  "pytest",
+]
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+]
+cov = [
+  "test-cov",
+  "cov-report",
+]
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11"]
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "mypy>=1.0.0",
+  "ruff>=0.1.2",
+]
+[tool.hatch.envs.lint.scripts]
+typing = "mypy --install-types --non-interactive {args:src/switchbotmeter tests}"
+style = [
+  "ruff check {args:.}",
+  "ruff format --check --diff {args:.}"
+]
+fmt = [
+  "ruff format {args:.}",
+  "ruff --fix {args:.}",
+]
+all = [
+  "style",
+  "typing",
+]
+
+
+[tool.ruff]
+target-version = "py37"
+line-length = 79
+select = ["ALL"]
+ignore = ["UP037", "D203", "D212", "COM812", "ISC001"]
+unfixable = ["UP037"]
+
+[tool.ruff.isort]
+known-first-party = ["switchbotmeter"]
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.per-file-ignores]
+# Tests can use magic values, assertions, and relative imports
+"tests/**/*" = ["PLR2004", "S101", "TID252", "D", "ANN", "N", "INP"]
+"src/switchbotmeter/__about__.py" = ["ALL"]
+
+[tool.coverage.run]
+source_pkgs = ["switchbotmeter"]
+branch = true
+parallel = true
+omit = [
+  "src/switchbotmeter/__about__.py",
+]
+
+[tool.coverage.paths]
+switchbotmeter = ["src/switchbotmeter", "*/switchbotmeter/src/switchbotmeter"]
+tests = ["tests", "*/switchbotmeter/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
